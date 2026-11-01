@@ -22,7 +22,7 @@ Extensão Chrome **Manifest V3** completa para captura de páginas inteiras, exp
 1. Abra o Chrome e acesse `chrome://extensions/`.
 2. Ative a chave **Modo do desenvolvedor** (canto superior direito).
 3. Clique em **Carregar sem compactação** (*Load unpacked*).
-4. Selecione a pasta raiz deste repositório: `c:\Users\deivi\repositorios\get-full-page`.
+4. Selecione a pasta raiz deste repositório.
 
 ## Atalhos de Teclado
 
