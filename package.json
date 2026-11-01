@@ -1,0 +1,10 @@
+{
+  "name": "get-full-page",
+  "version": "1.0.0",
+  "description": "Full Page Screen Capture & Pro Editor Chrome Extension (Manifest V3) — No Paywalls, No Limits",
+  "type": "module",
+  "scripts": {
+    "icons": "node scripts/generate-icons.mjs",
+    "test": "node scripts/verify-extension.mjs"
+  }
+}

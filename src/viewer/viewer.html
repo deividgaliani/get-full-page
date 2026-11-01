@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Captura — GetFullPage Pro</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <button type="button" id="btn-back-view" class="btn-ghost hidden" title="Voltar para visualização">
+        ← Voltar
+      </button>
+      <div class="brand">
+        <img src="../../icons/icon-48.png" width="24" height="24" alt="GetFullPage">
+        <span class="brand-name">GetFullPage</span>
+        <span class="badge-unlimited">SEM LIMITES</span>
+      </div>
+      <div id="capture-meta" class="capture-meta hidden">
+        <a id="meta-url" href="#" target="_blank" rel="noopener noreferrer" class="meta-url" title="Abrir URL original"></a>
+        <span id="meta-dims" class="meta-pill"></span>
+        <span id="meta-links" class="meta-pill"></span>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div id="capture-actions" class="action-group hidden">
+        <button type="button" id="btn-toggle-editor" class="btn-action accent" title="Recortar, borrar dados, anotar e adicionar moldura (Ctrl+E)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          <span id="lbl-toggle-editor">Editar &amp; Anotar</span>
+        </button>
+
+        <button type="button" id="btn-copy-clipboard" class="btn-action" title="Copiar imagem para a área de transferência (Ctrl+C)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span>Copiar</span>
+        </button>
+
+        <button type="button" id="btn-download-img" class="btn-action primary" title="Baixar Imagem (Ctrl+S)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span id="lbl-download-img">Baixar PNG</span>
+        </button>
+
+        <button type="button" id="btn-download-pdf" class="btn-action pdf" title="Exportar PDF com Smart Page Splitting e Links Clicáveis">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span>Exportar PDF</span>
+        </button>
+
+        <button type="button" id="btn-delete-current" class="btn-icon danger" title="Excluir esta captura">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6M14 11v6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="nav-group">
+        <button type="button" id="btn-nav-history" class="btn-ghost" title="Histórico de Capturas Salvas">
+          Arquivos
+        </button>
+        <button type="button" id="btn-nav-shortcuts" class="btn-ghost" title="Atalhos de Teclado e Recursos">
+          Atalhos
+        </button>
+        <button type="button" id="btn-nav-options" class="btn-ghost" title="Configurações da Extensão">
+          Opções
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de ferramentas do Editor Pro (visível apenas no modo de edição) -->
+  <section id="editor-toolbar" class="editor-toolbar hidden" aria-label="Ferramentas do Editor">
+    <div class="tool-section">
+      <button type="button" class="tool-btn active" data-tool="select" title="Selecionar / Mover camada (V)">
+        <span>↖ Selecionar</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="crop" title="Recortar área da imagem (C)">
+        <span>✂ Recortar</span>
+      </button>
+      <button type="button" id="btn-reset-crop" class="tool-btn subtle hidden" title="Restaurar área original">
+        <span>↺ Desfazer Recorte</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="blur" title="Desfocar / Pixelizar informações sensíveis (B)">
+        <span>▦ Borrar (Blur)</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="arrow" title="Desenhar Seta (A)">
+        <span>↗ Seta</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="rect" title="Desenhar Retângulo (R)">
+        <span>▭ Retângulo</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="ellipse" title="Desenhar Círculo/Elipse (O)">
+        <span>◯ Elipse</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="line" title="Desenhar Linha (L)">
+        <span>╱ Linha</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="text" title="Inserir Texto (T)">
+        <span>T Texto</span>
+      </button>
+      <button type="button" class="tool-btn" data-tool="step" title="Inserir Contador de Passos 1, 2, 3... (N)">
+        <span>① Passo</span>
+      </button>
+    </div>
+
+    <div class="tool-divider"></div>
+
+    <div class="tool-section">
+      <label class="ctrl-inline" title="Cor da anotação">
+        <span>Cor</span>
+        <input type="color" id="ed-color" value="#ef4444">
+      </label>
+      <label class="ctrl-inline" title="Espessura do traço">
+        <span>Traço</span>
+        <select id="ed-stroke">
+          <option value="2">Fino (2px)</option>
+          <option value="4" selected>Médio (4px)</option>
+          <option value="7">Grosso (7px)</option>
+          <option value="12">Extra (12px)</option>
+        </select>
+      </label>
+      <label class="ctrl-inline" title="Preencher forma / fundo de texto">
+        <input type="checkbox" id="ed-fill">
+        <span>Preencher</span>
+      </label>
+    </div>
+
+    <div class="tool-divider"></div>
+
+    <div class="tool-section">
+      <label class="ctrl-inline" title="Cabeçalho de Navegador com URL e Data">
+        <span>Moldura</span>
+        <select id="ed-frame">
+          <option value="none">Sem Moldura</option>
+          <option value="macos">macOS + URL/Data</option>
+          <option value="windows">Windows + URL/Data</option>
+          <option value="dark">Barra Escura URL/Data</option>
+          <option value="light">Barra Clara URL/Data</option>
+        </select>
+      </label>
+      <label class="ctrl-inline" title="Margem Externa (Padding)">
+        <span>Margem</span>
+        <select id="ed-padding">
+          <option value="0">0px</option>
+          <option value="24">24px</option>
+          <option value="48">48px</option>
+          <option value="72">72px</option>
+        </select>
+      </label>
+      <label class="ctrl-inline" title="Cor da Margem Externa">
+        <input type="color" id="ed-pad-color" value="#1e293b">
+      </label>
+      <label class="ctrl-inline" title="Cantos Arredondados">
+        <span>Cantos</span>
+        <select id="ed-radius">
+          <option value="0">0px</option>
+          <option value="8">8px</option>
+          <option value="14">14px</option>
+          <option value="22">22px</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="tool-divider"></div>
+
+    <div class="tool-section">
+      <button type="button" id="btn-ed-undo" class="tool-btn" disabled title="Desfazer (Ctrl+Z)">↶ Desfazer</button>
+      <button type="button" id="btn-ed-redo" class="tool-btn" disabled title="Refazer (Ctrl+Y)">↷ Refazer</button>
+      <button type="button" id="btn-ed-del-layer" class="tool-btn danger hidden" title="Excluir camada selecionada (Delete)">🗑 Camada</button>
+      <button type="button" id="btn-ed-clear" class="tool-btn" title="Limpar todas as anotações">Limpar</button>
+      <button type="button" id="btn-ed-save" class="tool-btn save" title="Salvar edições nesta captura">✓ Salvar Edições</button>
+    </div>
+  </section>
+
+  <!-- Área Principal: Visualizador de Imagem -->
+  <main id="section-viewer" class="workspace hidden">
+    <div id="canvas-stage" class="canvas-stage" tabindex="0"></div>
+
+    <div id="zoom-controls" class="zoom-controls">
+      <button type="button" id="btn-zoom-out" title="Diminuir Zoom (-)">−</button>
+      <button type="button" id="btn-zoom-fit" title="Ajustar à Largura / 100%">Ajustar</button>
+      <span id="zoom-label">100%</span>
+      <button type="button" id="btn-zoom-in" title="Aumentar Zoom (+)">+</button>
+    </div>
+  </main>
+
+  <!-- Área Principal: Histórico de Arquivos -->
+  <main id="section-history" class="history-container hidden">
+    <div class="history-header">
+      <div>
+        <h2>Histórico de Capturas Locais</h2>
+        <p>Suas capturas ficam salvas com segurança apenas no banco IndexedDB do seu computador.</p>
+      </div>
+      <div class="history-bulk-actions">
+        <label class="bulk-select-label">
+          <input type="checkbox" id="chk-select-all">
+          <span id="lbl-selected-count">Selecionar tudo</span>
+        </label>
+        <button type="button" id="btn-bulk-download" class="btn-action" disabled>Baixar Selecionadas</button>
+        <button type="button" id="btn-bulk-delete" class="btn-action danger" disabled>Excluir Selecionadas</button>
+      </div>
+    </div>
+    <div id="history-list" class="history-grid"></div>
+  </main>
+
+  <!-- Toast de Feedback -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <!-- Modal Dialog com closedby="any" para Atalhos e Recursos Desbloqueados -->
+  <dialog id="shortcuts-dialog" closedby="any" aria-labelledby="shortcuts-dialog-title">
+    <form method="dialog" class="dialog-content">
+      <div class="dialog-header">
+        <h3 id="shortcuts-dialog-title">Atalhos &amp; Recursos Pro Desbloqueados</h3>
+        <button type="submit" class="btn-close-dialog" aria-label="Fechar">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="shortcut-list">
+          <div><kbd>Alt + Shift + P</kbd> <span>Abrir popup de captura</span></div>
+          <div><kbd>Alt + Shift + V</kbd> <span>Capturar área visível instantaneamente</span></div>
+          <div><kbd>Ctrl / Cmd + E</kbd> <span>Alternar Editor de Anotações Pro</span></div>
+          <div><kbd>Ctrl / Cmd + C</kbd> <span>Copiar captura (ou edição) para a área de transferência</span></div>
+          <div><kbd>Ctrl / Cmd + S</kbd> <span>Baixar imagem</span></div>
+          <div><kbd>Ctrl / Cmd + Z / Y</kbd> <span>Desfazer / Refazer no Editor</span></div>
+          <div><kbd>Delete / Backspace</kbd> <span>Remover camada selecionada no Editor</span></div>
+        </div>
+        <div class="feature-summary">
+          <strong>Todos os recursos funcionam 100% localmente e sem paywall:</strong>
+          <ul>
+            <li><strong>Smart Page Splitting no PDF:</strong> Analisa linhas de pixels para nunca cortar frases ao meio entre páginas A4/Letter.</li>
+            <li><strong>Links Ativos no PDF:</strong> Todos os links <code>&lt;a href&gt;</code> da página continuam clicáveis no PDF exportado.</li>
+            <li><strong>Editor Completo:</strong> Recorte, Blur/Pixelização, Setas, Formas, Texto, Passos Numerados e Molduras macOS/Windows.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button type="submit" class="btn-action primary">Entendi</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>

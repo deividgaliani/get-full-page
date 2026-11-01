@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GetFullPage</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <img src="../../icons/icon-48.png" width="22" height="22" alt="GetFullPage">
+      <div>
+        <h1>GetFullPage <span class="badge-pro">PRO LIVRE</span></h1>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="btn-files" class="icon-btn" title="Histórico de Capturas">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+      </button>
+      <button type="button" id="btn-options" class="icon-btn" title="Configurações">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="view-modes" class="view">
+    <div class="mode-grid">
+      <button type="button" class="mode-card primary" data-mode="scroll">
+        <div class="mode-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M12 8v8m-4-4 4 4 4-4"/>
+          </svg>
+        </div>
+        <div class="mode-text">
+          <strong>Página Inteira (Rolagem Inteligente)</strong>
+          <span>Detecta containers, oculta cabeçalhos fixos repetidos e mapeia links do PDF</span>
+        </div>
+      </button>
+
+      <button type="button" class="mode-card" data-mode="cdp">
+        <div class="mode-icon cdp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <div class="mode-text">
+          <strong>Captura Instantânea (CDP / Sem Rolar)</strong>
+          <span>Renderiza a página completa direto pela engine do Chrome sem rolar a tela</span>
+        </div>
+      </button>
+
+      <button type="button" class="mode-card" data-mode="picker">
+        <div class="mode-icon picker">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>
+          </svg>
+        </div>
+        <div class="mode-text">
+          <strong>Selecionar Container ou Elemento</strong>
+          <span>Clique em um painel rolável interno (chats, tabelas, Notion) ou componente</span>
+        </div>
+      </button>
+
+      <button type="button" class="mode-card" data-mode="visible">
+        <div class="mode-icon visible">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <div class="mode-text">
+          <strong>Apenas Área Visível <kbd>Alt+Shift+V</kbd></strong>
+          <span>Captura imediata do que está visível na tela agora</span>
+        </div>
+      </button>
+    </div>
+
+    <footer class="footer-row">
+      <label class="auto-start-label">
+        <input type="checkbox" id="chk-auto-start">
+        <span>Capturar em 1 clique ao abrir o ícone</span>
+      </label>
+    </footer>
+  </main>
+
+  <section id="view-progress" class="view hidden">
+    <div class="progress-box">
+      <div class="progress-header">
+        <span id="progress-status">Capturando página...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div id="progress-bar" class="progress-fill"></div>
+      </div>
+      <p id="progress-sub" class="progress-sub">Rolando e costurando imagem em alta definição...</p>
+      <div class="progress-actions">
+        <button type="button" id="btn-stop-capture" class="btn-stop">
+          Parar Aqui e Finalizar Captura
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-error" class="view hidden">
+    <div class="error-box">
+      <strong id="error-title">Não foi possível capturar a página</strong>
+      <p id="error-desc"></p>
+      <div class="error-actions">
+        <button type="button" id="btn-fallback-visible" class="btn-primary">Capturar Área Visível</button>
+        <button type="button" id="btn-error-back" class="btn-secondary">Voltar</button>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

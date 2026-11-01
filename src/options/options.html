@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opções — GetFullPage Pro</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="../../icons/icon-48.png" width="24" height="24" alt="GetFullPage">
+      <h1>GetFullPage <span class="badge-pro">CONFIGURAÇÕES PRO (100% DESBLOQUEADO)</span></h1>
+    </div>
+    <div class="header-links">
+      <a href="../viewer/viewer.html" class="btn-link">Abrir Histórico de Capturas</a>
+      <button type="button" id="btn-reset-defaults" class="btn-ghost">Restaurar Padrões</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="card-header">
+        <h2>Motor de Captura &amp; Comportamento</h2>
+        <p>Configure como a extensão captura páginas inteiras, painéis internos e imagens com carregamento preguiçoso (lazy-load).</p>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-defaultCaptureMode">Modo de Captura Padrão</label>
+          <p class="help">Usado quando a captura em 1 clique está ativa.</p>
+        </div>
+        <select id="opt-defaultCaptureMode">
+          <option value="scroll">Rolagem Inteligente (Recomendado)</option>
+          <option value="cdp">Captura Instantânea CDP (Sem Rolagem)</option>
+          <option value="visible">Apenas Área Visível</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-autoStartCapture">Capturar em 1 clique ao clicar no ícone da extensão</label>
+          <p class="help">Inicia a captura imediatamente ao abrir o popup, igual ao comportamento clássico.</p>
+        </div>
+        <input type="checkbox" id="opt-autoStartCapture" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-hideFixedSticky">Ocultar cabeçalhos e barras fixas repetidas (Fixed / Sticky)</label>
+          <p class="help">Mantém menus fixos apenas no topo da página e evita que se repitam em cada fatia da rolagem.</p>
+        </div>
+        <input type="checkbox" id="opt-hideFixedSticky" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-warmupLazyLoad">Pré-aquecer imagens Lazy-Load antes de capturar</label>
+          <p class="help">Percorre rapidamente a página para acionar o carregamento de imagens dinâmicas antes de registrar os pixels.</p>
+        </div>
+        <input type="checkbox" id="opt-warmupLazyLoad" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-scrollDelayMs">Intervalo de estabilização entre fatias (ms)</label>
+          <p class="help">Aumente se capturar páginas pesadas com muitas animações (padrão: 160ms).</p>
+        </div>
+        <input type="number" id="opt-scrollDelayMs" min="60" max="2000" step="20">
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Exportação de PDF Inteligente <span class="tag-free">Liberado</span></h2>
+        <p>Todos os recursos avançados de PDF funcionam localmente sem necessidade de conta ou assinatura.</p>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-pdfPaperSize">Formato / Tamanho da Página do PDF</label>
+          <p class="help">Escolha entre documento contínuo sem quebras ou páginas padronizadas para impressão.</p>
+        </div>
+        <select id="opt-pdfPaperSize">
+          <option value="a4">A4 Retrato (210 × 297 mm)</option>
+          <option value="a4-landscape">A4 Paisagem (297 × 210 mm)</option>
+          <option value="letter">Carta EUA Retrato (Letter)</option>
+          <option value="letter-landscape">Carta EUA Paisagem (Letter)</option>
+          <option value="legal">Ofício Retrato (Legal)</option>
+          <option value="full">Página Contínua Única (Full Image)</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-pdfSmartSplit">Divisão Inteligente de Páginas (Smart Page Splitting)</label>
+          <p class="help">Analisa as linhas de pixels na borda de cada folha para evitar cortar frases e linhas de texto ao meio.</p>
+        </div>
+        <input type="checkbox" id="opt-pdfSmartSplit" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-pdfActiveLinks">Ativar todos os Links Clicáveis no PDF (Active Links)</label>
+          <p class="help">Mapeia todas as tags <code>&lt;a href&gt;</code> da página e insere anotações clicáveis diretamente no PDF exportado.</p>
+        </div>
+        <input type="checkbox" id="opt-pdfActiveLinks" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-pdfHeaderUrlDate">Adicionar Cabeçalho com URL e Data/Hora no PDF</label>
+          <p class="help">Inclui no topo do PDF o endereço completo da página capturada e o carimbo de data/hora.</p>
+        </div>
+        <input type="checkbox" id="opt-pdfHeaderUrlDate" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-pdfDateFormat">Formato de Data no Cabeçalho</label>
+          <p class="help">Define como a data/hora aparece no topo do PDF.</p>
+        </div>
+        <select id="opt-pdfDateFormat">
+          <option value="br">Padrão BR (DD/MM/AAAA HH:mm)</option>
+          <option value="iso">ISO 8601 (AAAA-MM-DD HH:mm:ss)</option>
+          <option value="us">Padrão US (MM/DD/AAAA HH:mm)</option>
+          <option value="full">Data por extenso</option>
+          <option value="none">Ocultar data (mostrar apenas URL)</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Formato de Imagem, Downloads &amp; Nomenclatura <span class="tag-free">Liberado</span></h2>
+        <p>Personalize o formato do arquivo, pasta de destino e máscara dinâmica de nome.</p>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-imageFormat">Formato de Imagem</label>
+          <p class="help">PNG preserva 100% dos pixels sem perdas; WebP e JPG geram arquivos menores.</p>
+        </div>
+        <select id="opt-imageFormat">
+          <option value="png">PNG (Sem perdas / Lossless)</option>
+          <option value="webp">WebP (Alta qualidade e leve)</option>
+          <option value="jpeg">JPG (Compactado)</option>
+        </select>
+      </div>
+
+      <div class="setting-row wide">
+        <div>
+          <label for="opt-filenameTemplate">Template de Nome de Arquivo Personalizado</label>
+          <p class="help">Clique nas variáveis abaixo para inserir no template.</p>
+        </div>
+        <input type="text" id="opt-filenameTemplate" spellcheck="false">
+        <div class="token-bar">
+          <button type="button" class="token-chip" data-token="{domain}">{domain}</button>
+          <button type="button" class="token-chip" data-token="{title}">{title}</button>
+          <button type="button" class="token-chip" data-token="{url}">{url}</button>
+          <button type="button" class="token-chip" data-token="{path}">{path}</button>
+          <button type="button" class="token-chip" data-token="{date}">{date}</button>
+          <button type="button" class="token-chip" data-token="{time}">{time}</button>
+          <button type="button" class="token-chip" data-token="{timestamp}">{timestamp}</button>
+        </div>
+        <div class="preview-box">
+          <span>Prévia:</span>
+          <code id="filename-preview"></code>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-downloadSubdir">Subpasta dentro de Downloads (opcional)</label>
+          <p class="help">Ex: <code>capturas/clientes</code>. Deixe em branco para salvar direto na pasta Downloads.</p>
+        </div>
+        <input type="text" id="opt-downloadSubdir" placeholder="Ex: screencaptures">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-autoDownload">Download automático após capturar</label>
+          <p class="help">Baixa o arquivo de imagem imediatamente ao concluir a captura.</p>
+        </div>
+        <input type="checkbox" id="opt-autoDownload" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-saveAsDialog">Exibir caixa de diálogo "Salvar como" ao exportar</label>
+          <p class="help">Pergunta onde salvar o arquivo a cada exportação individual.</p>
+        </div>
+        <input type="checkbox" id="opt-saveAsDialog" class="switch">
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <label for="opt-fitGoogleDocs">Ajustar cópias da área de transferência ao limite do Google Docs (25 MP)</label>
+          <p class="help">Redimensiona automaticamente ao copiar imagens gigantescas para evitar truncamento no Google Docs.</p>
+        </div>
+        <input type="checkbox" id="opt-fitGoogleDocs" class="switch">
+      </div>
+    </section>
+  </main>
+
+  <div id="save-banner" class="save-banner hidden" role="status" aria-live="polite">✓ Configuração salva automaticamente</div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>
